@@ -77,7 +77,24 @@ void checkSettings()
   Serial.print(" / ");
   Serial.println(mpu.getGyroOffsetZ());
   
+  Serial.print(" * Accelerometer:         ");
+  switch(mpu.getRange())
+  {
+    case MPU6050_RANGE_16G:            Serial.println("+/- 16 g"); break;
+    case MPU6050_RANGE_8G:             Serial.println("+/- 8 g"); break;
+    case MPU6050_RANGE_4G:             Serial.println("+/- 4 g"); break;
+    case MPU6050_RANGE_2G:             Serial.println("+/- 2 g"); break;
+  }  
+
+  Serial.print(" * Accelerometer offsets: ");
+  Serial.print(mpu.getAccelOffsetX());
+  Serial.print(" / ");
+  Serial.print(mpu.getAccelOffsetY());
+  Serial.print(" / ");
+  Serial.println(mpu.getAccelOffsetZ());
+
   Serial.println();
+  
 }
 
 void loop()
@@ -98,7 +115,25 @@ void loop()
   Serial.print(normGyro.YAxis);
   Serial.print(" Znorm = ");
   Serial.println(normGyro.ZAxis);
+
+  Vector rawAccel = mpu.readRawAccel();
+  Vector normAccel = mpu.readNormalizeAccel();
+
+  Serial.print(" Xraw = ");
+  Serial.print(rawAccel.XAxis);
+  Serial.print(" Yraw = ");
+  Serial.print(rawAccel.YAxis);
+  Serial.print(" Zraw = ");
+
+  Serial.println(rawAccel.ZAxis);
+  Serial.print(" Xnorm = ");
+  Serial.print(normAccel.XAxis);
+  Serial.print(" Ynorm = ");
+  Serial.print(normAccel.YAxis);
+  Serial.print(" Znorm = ");
+  Serial.println(normAccel.ZAxis);
   
   delay(10);
+
 }
 
