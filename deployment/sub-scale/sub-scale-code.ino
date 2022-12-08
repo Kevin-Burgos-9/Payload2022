@@ -35,9 +35,11 @@ void launched(uint8_t acc){
 }
 
 void loop() {
-
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
   uint8_t total_accel = a.acceleration.x + a.acceleration.y + a.acceleration.z;
   launched(total_accel);
+  Serial.println(total_accel);
 
   if(is_launched){
   
@@ -45,17 +47,18 @@ void loop() {
 
       //Activate motor for 5 seconds
       Serial.println("ARRIVED");
+      delay(2000);
     }
   }
 
-  if(mpu.getMotionInterruptStatus()) {
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-    Serial.println(a.acceleration.x + a.acceleration.y + a.acceleration.z);
-  }
-  else{
-    Serial.println("NO MOTION DETECTED");
-    delay(1000);
-  }
-  delay(10);
+  // if(mpu.getMotionInterruptStatus()) {
+  //   sensors_event_t a, g, temp;
+  //   mpu.getEvent(&a, &g, &temp);
+  //   Serial.println(a.acceleration.x + a.acceleration.y + a.acceleration.z);
+  // }
+  // else{
+  //   Serial.println("NO MOTION DETECTED");
+  //   delay(1000);
+  // }
+  // delay(10);
 }
