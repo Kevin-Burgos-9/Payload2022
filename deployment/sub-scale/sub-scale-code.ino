@@ -24,13 +24,30 @@ void setup(void) {
   Serial.println("");
   delay(100);
 }
-uint8_t launched(uint8_t acc){
-  if(acc > 150){
-    return 1; // True 
+
+uint8_t motor_pin = 3;
+bool is_launched = false;
+
+void launched(uint8_t acc){
+  if(acc >= 13){
+    is_launched = true;
   }
-  return 0;
 }
+
 void loop() {
+
+  uint8_t total_accel = a.acceleration.x + a.acceleration.y + a.acceleration.z;
+  launched(total_accel);
+
+  if(is_launched){
+  
+    if(!mpu.getMotionInterruptStatus()) { //No motion detected and the payload has arrived.
+
+      //Activate motor for 5 seconds
+      Serial.println("ARRIVED");
+    }
+  }
+
   if(mpu.getMotionInterruptStatus()) {
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
