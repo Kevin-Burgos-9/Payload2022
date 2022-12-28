@@ -17,12 +17,12 @@ Servo servo2;
 
 void setup() {
   // Initialize I2C communication with the MPU6050
-  // Wire.begin();
+  Wire.begin();
 
   accelgyro.initialize();
 
-  pinMode(motorPin1, OUTPUT);
-  pinMode(motorPin2, OUTPUT);
+  // pinMode(motorPin1, OUTPUT);
+  // pinMode(motorPin2, OUTPUT);
 
   servo1.attach(SERVO_1_PIN);
   servo2.attach(SERVO_2_PIN);
@@ -36,9 +36,16 @@ void loop() {
   // // Read accelerometer values
   int ax, ay, az;
   accelgyro.getAcceleration(&ax, &ay, &az);
- 
 
-    String command = "run";
+      float pitch = atan2(ay, az) //* 180 / PI;
+      float roll = atan2(-ax, az) //* 180 / PI;
+
+      // adjust the servo positions to level the platform
+      while()
+      servo1.write(60);
+      servo2.write(60);
+
+    String command = "r";
     Serial.println(command);
     if (command == "run") {
 
@@ -65,6 +72,7 @@ void loop() {
       // adjust the servo positions to level the platform
       servo1.write(90 + pitch);
       servo2.write(90 + roll);
+    
 
     } else if (command == "rest") {
 
