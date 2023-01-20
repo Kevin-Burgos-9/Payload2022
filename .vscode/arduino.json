@@ -1,5 +1,0 @@
-{
-    "board": "arduino:avr:micro",
-    "port": "/dev/tty.usbmodem142301",
-    "sketch": "deployment/openAI/openai.ino"
-}
