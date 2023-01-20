@@ -1,4 +1,4 @@
-class camera:
+class Camera:
     def __init__ (self):
         self.grayscale : bool = False
         self.flip : bool = False
