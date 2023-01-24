@@ -51,3 +51,8 @@ class Camera:
         #-----------------------
 
         return save_location
+
+
+def nose():
+    print('No se')
+
