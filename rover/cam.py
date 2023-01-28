@@ -41,7 +41,6 @@ class Camera:
         # Code Here -------------
 
         #Estas dos lineas son las que enseñan el timestamp en la foto
-
         dt = datetime.now()
         print(str(dt))
 
@@ -54,7 +53,7 @@ class Camera:
 
         #cuando el flip code es 0 la imagen rotara verticalmente
         #cuando el flip code es un numero positivo la imagen rotara horizontalmente
-
+        #si es un numero negativo hara ambas
         imgs = cv2.flip(imgs,-1)
 
         #esta bloque se utiliza para añadirle un filtro a la foto
@@ -73,12 +72,6 @@ class Camera:
         cv2.imshow("image", imgs)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-
-
-
-
-
 
         # -----------------------
 
