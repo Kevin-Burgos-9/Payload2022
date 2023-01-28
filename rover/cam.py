@@ -41,6 +41,7 @@ class Camera:
         # Code Here -------------
 
         #Estas dos lineas son las que enseñan el timestamp en la foto
+
         dt = datetime.now()
         print(str(dt))
 
