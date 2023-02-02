@@ -1,5 +1,5 @@
-class dcmotors:
-    def __init__ (self):
+class Dcmotors:
+    def __init__(self):
         pass
 
     def move_rover(self, backwards: bool) -> None:

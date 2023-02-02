@@ -1,3 +1,3 @@
-class buzzer:
-    def __init__ (self):
+class Buzzer:
+    def __init__(self):
         pass
