@@ -1,4 +1,10 @@
 from gpiozero import Motor
+from mpu6050 import mpu6050
+
+mpu = mpu6050(0x68)
+
+accelerometer_data = sensor.get_accel_data()
+
 class Dcmotors:
     def __init__(self, motor_pin: int):
         self.motor_pin = motor_pin
@@ -15,11 +21,18 @@ class Dcmotors:
 
     def isStuck(self) -> bool:
 
+
+
+
+
         
 
 
 
     def move_rover(self, backwards: bool) -> None:
+
+
+
         """Function to move rover forward,
         unless the backwards boolean is true, then move backwards"""
         pass

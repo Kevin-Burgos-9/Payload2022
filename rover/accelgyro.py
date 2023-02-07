@@ -1,36 +1,12 @@
-import time
-import math
-import pwmio
-import busio
-import board
-import adafruit_mpu6050
-#from adafruit_motor import Servo
+from mpu6050 import mpu6050
 
-THRESHOLD = 15  # Threshold for detecting launch/landing
-SERVO_1_PIN = 5  # Pin for first servo
-SERVO_2_PIN = 6  # Pin for second servo
-
-# Initialize I2C bus and MPU6050 sensor
-i2c = busio.I2C(board.SCL, board.SDA)
-sensor = adafruit_mpu6050.MPU6050(i2c)
-
-# Initialize the servo objects
-
-#set_pinout(board.RASPBERRY_PI_4_GPIO_P1_PINOUT)
-#servo1 = Servo(SERVO_1_PIN)
-#servo2 = Servo(SERVO_2_PIN)
-
-isLaunched = False  # Flag for launch/landing detection
+sensor = mpu6050(0x68)
 
 while True:
-    # Read accelerometer values
-    ax = sensor.acceleration[0]
-    ay = sensor.acceleration[1]
-    az = sensor.acceleration[2]
 
-    pitch = math.atan2(-ax, az)
-    print(pitch)
-    # Check if the rocket is launched/landed
-    if not isLaunched and abs(az) > THRESHOLD:
-        isLaunched = True
-        # Code for launching goes here
+    accelerometer_data = sensor.get_accel_data()
+    print(accelerometer_data)
+
+    ax = accelerometer_data.get('x')
+    ay = accelerometer_data.get('y')
+    az = accelerometer_data.get('z')
