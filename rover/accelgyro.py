@@ -7,6 +7,7 @@ while True:
     accelerometer_data = sensor.get_accel_data()
     gyro_data = sensor.get_gyro_data()
 
+
     ax = accelerometer_data.get('x')
     ay = accelerometer_data.get('y')
     az = accelerometer_data.get('z')

@@ -1,4 +1,3 @@
-import TB6612FNG
 from mpu6050 import mpu6050
 import RadioHead
 from reciever import reciever
@@ -6,7 +5,6 @@ from reciever import reciever
 
 class Rover:
     def __init__(self, front_lidar, back_lidar, camera, servos, reciever):
-        self.driver = TB6612FNG.Driver()
         self.front_lidar = front_lidar
         self.back_lidar = back_lidar
         self.mpu = mpu6050(0x68)
