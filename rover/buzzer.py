@@ -1,22 +1,31 @@
-import RPi.GPIO as GPIO
 import time
+import pigpio
 
+# Initialize pigpio
+pi = pigpio.pi()
 
-class Buzzer:
-    def __init__(self, pin):
-        GPIO.setmode(GPIO.BOARD)
-        self.buzzer_pin = pin
-        GPIO.setup(self.buzzer_pin, GPIO.OUT)
+# Choose GPIO pin for the buzzer
+GPIO = 4
 
-    def buzzer_on(self):
-        GPIO.output(self.buzzer_pin, GPIO.HIGH)
+# Set the frequency of the buzzer
+frequency = 500
 
-    def buzzer_off(self):
-        GPIO.output(self.buzzer_pin, GPIO.LOW)
+# Set the duty cycle to 50%
+duty_cycle = 128
 
-    def different_tones_example(self):
-        p = GPIO.PWM(self.buzzer_pin, 50)
-        while True:
-            for f in np.linspace(200, 2000, num=50): # Numpy needed
-                p.ChangeFrequency(f)
-                time.sleep(0.01)
+try:
+    while True:
+        # Start the buzzer
+        pi.set_PWM_dutycycle(GPIO, duty_cycle)
+        pi.set_PWM_frequency(GPIO, frequency)
+        time.sleep(0.5)
+
+        # Turn off the buzzer
+        pi.set_PWM_dutycycle(GPIO, 0)
+        time.sleep(10)
+
+except KeyboardInterrupt:
+    # Clean up and stop pigpio when user stops the program
+    pi.set_PWM_dutycycle(GPIO, 0)
+    pi.stop()
+
