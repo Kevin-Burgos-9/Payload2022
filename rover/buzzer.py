@@ -15,10 +15,10 @@ duty_cycle = 128
 
 
 def buzzer_on():
-    pi.set_PWM_dutycycle(GPIO, duty_cycle)
-    pi.set_PWM_frequency(GPIO, frequency)
-    time.sleep(0.5)
+        pi.set_PWM_dutycycle(GPIO, duty_cycle)
+        pi.set_PWM_frequency(GPIO, frequency)
+        time.sleep(0.5)
 
-    # Turn off the buzzer
-    pi.set_PWM_dutycycle(GPIO, 0)
-    time.sleep(10)
+        # Turn off the buzzer
+        pi.set_PWM_dutycycle(GPIO, 0)
+        time.sleep(10)
