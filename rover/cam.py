@@ -1,36 +1,40 @@
 import cv2
 from datetime import datetime
 
-
 class Camera:
     def __init__(self):
-        self.grayscale: bool = False
-        self.flip: bool = False
-        self.filters: bool = False
+        self.cam = cv2.VideoCapture(0)
         pass
 
-    def toggle_grayscale(self):
-        '''Enable/Disable Grayscale mode'''
-        pass
-
-    def take_picture(self, grasycale: bool, flip: bool, filters: bool) -> str:
+    def take_picture(self, grayscale: bool, flip : bool, filters : bool) -> None:
         '''Take a picture and apply all filters and effects and the time stamp
         and return location where the file was saved'''
 
-        save_location: str
-
         # Code Here -------------
 
-        # remember to enable grayscale and flip image if needed
+        
+        return_value, image = self.cam.read()
+        dt = datetime.now()
+        print('Picture taken at: ' + str(dt))
 
-        # -----------------------
+        cv2.imwrite('temp.png', image)
 
-        if filters:
-            save_location = self.apply_Filters()
+        if grayscale :
+            image = cv2.imread('temp.png', 0)
+        
+        if flip :
+            image = cv2.flip(image, 0)
 
-        save_location = self.apply_time_stamp(save_location)
+        if filters :
+            image = cv2.blur(image, (10,10))
 
-        return save_location
+        cv2.putText(img=image, text=str(dt), org=(1000, 1000), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=3.5, color=(10, 235, 245), thickness=3)
+        
+        #cv2.imshow(str(dt), image)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+
+        cv2.imwrite(str(dt) + '.png', image)
 
     def apply_time_stamp(self, img: str) -> str:
         '''Apply timestamp to image and return saved location'''
@@ -39,8 +43,6 @@ class Camera:
         # Code Here -------------
 
         # Estas dos lineas son las que enseñan el timestamp en la foto
-        dt = datetime.now()
-        print(str(dt))
 
         img_original = cv2.imread('imagen.jpg')
 
@@ -62,28 +64,9 @@ class Camera:
         # org(X cordenada, Y cordenada) para ajustar el timestamp en la foto
         # fronFace - El estile del timestamp
         # frontScale - Tamaño de timestamp
-        cv2.putText(img=imgs, text=str(dt), org=(
-            250, 300), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=0.75, color=(10, 235, 245))
-
-        cv2.imshow("Normal Image", img_original)
-        cv2.imshow("image", imgs)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        
+        
 
         # -----------------------
 
         return save_location
-
-    def apply_filters(self, img: str) -> str:
-        '''Apply filters to image and return saved location'''
-        save_location: str
-
-        # Code Here -------------
-
-        # -----------------------
-
-        return save_location
-
-
-c = Camera()
-c.apply_time_stamp("./imagen.jpg")
