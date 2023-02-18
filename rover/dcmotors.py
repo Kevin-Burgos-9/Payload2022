@@ -1,65 +1,31 @@
-from gpiozero import Motor
-from mpu6050 import mpu6050
-from RpiMotorLib import rpi_dc_lib
+import pigpio
 
 
-mpu = mpu6050(0x68)
-gyro_data = sensor.get_accel_data()
+class Motor:
+    def __init__(self, pwm_pin, stby_pin, in1_pin, in2_pin):
+        self.pwmA = pwm_pin
+        self.stby = stby_pin
+        self.aIn1 = in1_pin
+        self.aIn2 = in2_pin
 
-//PINS FOR DRIVER
-PWA = 17
-AI1 = 22
-AI2 = 27
-PWB = 18
-BI1 = 23
-BI2 = 24
-Standby = 25
-Freq = 50
+        self.pi = pigpio.pi()
 
-//MOTOR OBJECTS USING DRIVER
-motor_one = rpi_dc_lib.TB6612FNGDc(AI1 ,AI2 ,PWA ,Freq,True, "motor_one")
-motor_two = rpi_dc_lib.TB6612FNGDc(BI1 ,BI2 ,PWB ,Freq ,True, "motor_two")
+        # Setting pins to output
+        self.pi.set_mode(self.pwmA, pigpio.OUTPUT)
+        self.pi.set_mode(self.stby, pigpio.OUTPUT)
+        self.pi.set_mode(self.aIn1, pigpio.OUTPUT)
+        self.pi.set_mode(self.aIn2, pigpio.OUTPUT)
 
-class Dcmotors:
-    def __init__(self, motor_pin: int):
-        self.motor_pin = motor_pin
-        self.motor = Motor(motor_pin)
-        self.side = side
-        
-    def isOn(self) -> bool:
-        """ Detects if the motor is turned on """
+        # 1 -> High, this enables the driver
+        self.pi.write(stby_pin, 1)
 
-        return self.motor.is_active
+    def motor_forward(self):
+        # in1 and in2 control the polarity
+        self.pi.write(self.aIn1, 1)
+        self.pi.write(self.aIn2, 0)
+        self.pi.set_PWM_dutycycle(self.pwmA, 256)  # set motor speed to 100%
 
-    def getPin(self) -> int:
-
-        return self.motor_pin
-
-    def isStuck(self) -> bool:
-        
-        //check if motors are turned on
-
-        if isOn:
-            
-            //Check if the gyroscope data is constant
-
-                //Check if the accelerometer doesnt pass threshold
-
-
-
-    def move_rover(self, backwards: bool) -> None:
-
-        if backwards:
-
-            motor_one.backward(25)
-            motor_two.backward(25)
-
-        else:
-
-            motor_one.forward(25)
-            motor_one.forward(25)
-
-    def rotate_rover(self, left: bool) -> None:
-        """Function to move rover to the right,
-        unlessthe left boolean is true, then rotate left"""
-        pass
+    def motor_stop(self):
+        self.pi.write(self.aIn1, 0)
+        self.pi.write(self.aIn2, 0)
+        self.pi.set_PWM_dutycycle(self.pwmA, 0)  # set motor speed to 0
