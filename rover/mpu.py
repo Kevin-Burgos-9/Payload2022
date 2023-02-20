@@ -8,14 +8,21 @@ def checkTilt(aX, aY, aZ):
     pitch = math.atan2(-1 * aX, aZ) * 180 / math.pi # rotation on Y axis
     roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi # rotation on X axis   
 
+    if abs(roll) > 90 or abs(pitch) > 90:
+        print("Robot is upside down")
+    elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
+        print("Robot is upside down")
+    else:
+        print("Robot is not upside down")
+
     return (pitch, roll)
 
 
 
 while True:
 
-    accelerometer_data = sensor.get_accel_data()
-    gyro_data = sensor.get_gyro_data()
+    accelerometer_data = mpu.get_accel_data()
+    gyro_data = mpu.get_gyro_data()
 
     ax = accelerometer_data.get('x')
     ay = accelerometer_data.get('y')
