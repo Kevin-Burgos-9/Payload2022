@@ -1,5 +1,6 @@
 from mpu6050 import mpu6050
 import math
+import time 
 
 mpu = mpu6050(0x68)
 
@@ -9,14 +10,11 @@ def checkTilt(aX, aY, aZ):
     roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi # rotation on X axis   
 
     if abs(roll) > 90 or abs(pitch) > 90:
-        print("Robot is upside down")
+        return "Robot is upside down"
     elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
-        print("Robot is upside down")
+       return "Robot is upside down"
     else:
-        print("Robot is not upside down")
-
-    return (pitch, roll)
-
+        return "Robot is not upside down"
 
 
 while True:
@@ -29,3 +27,5 @@ while True:
     az = accelerometer_data.get('z')
 
     print(checkTilt(ax, ay, az))
+
+    time.sleep(0.5)
