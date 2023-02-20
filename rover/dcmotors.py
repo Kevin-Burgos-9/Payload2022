@@ -19,13 +19,22 @@ class Motor:
         # 1 -> High, this enables the driver
         self.pi.write(stby_pin, 1)
 
-    def motor_forward(self):
+    def motorBackward(self):
+        self.pi.write(self.aIn, 0)
+        self.pi.wite(self.aIn2, 1)
+
+    def motorForward(self):
         # in1 and in2 control the polarity
         self.pi.write(self.aIn1, 1)
         self.pi.write(self.aIn2, 0)
         self.pi.set_PWM_dutycycle(self.pwmA, 256)  # set motor speed to 100%
 
-    def motor_stop(self):
+    def avoid(self):
+        pass
+
+    def motorStop(self):
         self.pi.write(self.aIn1, 0)
         self.pi.write(self.aIn2, 0)
         self.pi.set_PWM_dutycycle(self.pwmA, 0)  # set motor speed to 0
+
+    
