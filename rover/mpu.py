@@ -16,16 +16,27 @@ def checkTilt(aX, aY, aZ):
     else:
         return "Robot is not upside down"
 
-
 while True:
 
     accelerometer_data = mpu.get_accel_data()
     gyro_data = mpu.get_gyro_data()
 
-    ax = accelerometer_data.get('x')
-    ay = accelerometer_data.get('y')
-    az = accelerometer_data.get('z')
+    prevX = round(accelerometer_data.get('x'),6)
+    prevY = round(accelerometer_data.get('y'),6)
+    prevZ = round(accelerometer_data.get('z'),6)
 
-    print(checkTilt(ax, ay, az))
+    time.sleep(2)
+
+    ax = round(accelerometer_data.get('x'),6)
+    ay = round(accelerometer_data.get('y'),6)
+    az = round(accelerometer_data.get('z'), 6)
+
+    if (ax == prevX) and (ay == prevY) and (az == prevZ):
+        print('landed')
+
+    else:
+        print('Schmooving!')
+        print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: '+ str(az))
+   # print(checkTilt(ax, ay, az))
 
     time.sleep(0.5)

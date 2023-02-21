@@ -1,6 +1,5 @@
 import pigpio
 
-
 class Motor:
     def __init__(self, pwm_pin, stby_pin, in1_pin, in2_pin):
         self.pwmA = pwm_pin
