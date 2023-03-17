@@ -21,22 +21,27 @@ while True:
     accelerometer_data = mpu.get_accel_data()
     gyro_data = mpu.get_gyro_data()
 
-    prevX = round(accelerometer_data.get('x'),6)
-    prevY = round(accelerometer_data.get('y'),6)
-    prevZ = round(accelerometer_data.get('z'),6)
-
-    time.sleep(2)
-
-    ax = round(accelerometer_data.get('x'),6)
-    ay = round(accelerometer_data.get('y'),6)
-    az = round(accelerometer_data.get('z'), 6)
-
-    if (ax == prevX) and (ay == prevY) and (az == prevZ):
-        print('landed')
-
-    else:
-        print('Schmooving!')
-        print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: '+ str(az))
-   # print(checkTilt(ax, ay, az))
+    prevX = round(accelerometer_data.get('x'),0)
+    prevY = round(accelerometer_data.get('y'),0)
+    prevZ = round(accelerometer_data.get('z'),0)
 
     time.sleep(0.5)
+
+    accelerometer_data = mpu.get_accel_data()
+    ax = round(accelerometer_data.get('x'),0)
+    ay = round(accelerometer_data.get('y'),0)
+    az = round(accelerometer_data.get('z'),0)
+
+    print('X: ' + str(prevX) + ' Y: ' + str(prevY) + ' Z: '+ str(prevZ))
+    print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: '+ str(az))
+
+
+    #LANDED CODE
+    if (ax == prevX) and (ay == prevY) and (az == prevZ):
+        print('landed')
+        print(checkTilt(ax, ay, az))
+    
+    #NOT LANDED, STILL MOVING
+    else:
+        print('Schmooving!')
+
