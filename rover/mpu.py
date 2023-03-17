@@ -1,6 +1,7 @@
 from mpu6050 import mpu6050
 import math
-import time 
+import time
+from csv import writer
 
 mpu = mpu6050(0x68)
 
@@ -45,3 +46,20 @@ while True:
     else:
         print('Schmooving!')
 
+    temp = []
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+
+    temp.append(current_time)
+    temp.append(ax)
+    temp.append(ay)
+    temp.append(az)
+
+    print(checkTilt(ax, ay, az))
+
+    with open('data.csv', 'a') as dataFile:
+        fileObject = writer(dataFile)
+        fileObject.writerow(temp)
+        fileObject.close()
+
+    time.sleep(0.5)
