@@ -1,7 +1,7 @@
 from mpu6050 import mpu6050
 import math
 import time
-import record.py
+import record
 
 
 mpu = mpu6050(0x68)
@@ -58,6 +58,6 @@ while True:
 
     print(checkTilt(ax, ay, az))
 
-    record(temp)
+    record.record(temp)
 
     time.sleep(0.5)

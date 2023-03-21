@@ -24,4 +24,4 @@ def read_root():
 
 @app.get("/record")
 def recordData():
-    return subprocess.run(["python3", "/rover/mpu.py"])
+    return subprocess.run(["python3", "rover/mpu.py"])

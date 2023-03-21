@@ -4,5 +4,5 @@ def record(dataToInsert):
     with open('data.csv', 'a') as dataFile:
         fileObject = writer(dataFile)
         fileObject.writerow(dataToInsert)
-        fileObject.close()
+        dataFile.close()
 
