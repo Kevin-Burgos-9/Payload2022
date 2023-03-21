@@ -5,7 +5,7 @@ import math
 
 class SelfLeveling():
     def __init__(self):
-        self.rightLegAngle = 90
+        self.rightLegAngle = 0
         self.leftLegAngle = 90
         self.leveled = False
         self.p1 = GPIO.PWM(12, 50)
@@ -26,12 +26,12 @@ class SelfLeveling():
         
     
     def level(self,pitch):
-        if pitch <= -2 and pitch >= -3:
+        if pitch <= 0 and pitch >= -1.3:
             self.p1.start(0) # Reduces jitter, must have a time.sleep 
             self.p2.start(0)
             self.leveled = True
         
-        elif pitch > -2:
+        elif pitch > 0:
             self.rightLegAngle += 1
             self.p1.ChangeDutyCycle(self.get_pwm(self.rightLegAngle))
        
@@ -48,7 +48,7 @@ GPIO.setup(13,GPIO.OUT)
 
 #in main loop, if mpu data is too far from ideal, then restart the process
 l = SelfLeveling()
-l.set_straight()
+#l.set_straight()
 while True:
     ax = mpu.get_accel_data().get("x")
     ay = mpu.get_accel_data().get("y")
@@ -60,7 +60,7 @@ while True:
     if l.leveled == False:
         l.level(az)
         
-    if az > -2 or az < -3:
+    if az > 0 or az < -1.3:
         l.leveled = False
     
 

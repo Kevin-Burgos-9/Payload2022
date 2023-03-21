@@ -19,14 +19,15 @@ class Motor:
         self.pi.write(stby_pin, 1)
 
     def motorBackward(self):
-        self.pi.write(self.aIn, 0)
-        self.pi.wite(self.aIn2, 1)
+        self.pi.write(self.aIn1, 0)
+        self.pi.write(self.aIn2, 1)
+        self.pi.set_PWM_dutycycle(self.pwmA, 255)  # set motor speed to 100%
 
     def motorForward(self):
         # in1 and in2 control the polarity
         self.pi.write(self.aIn1, 1)
         self.pi.write(self.aIn2, 0)
-        self.pi.set_PWM_dutycycle(self.pwmA, 256)  # set motor speed to 100%
+        self.pi.set_PWM_dutycycle(self.pwmA, 255)  # set motor speed to 100%
 
     def avoid(self):
         pass

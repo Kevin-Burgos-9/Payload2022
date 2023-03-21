@@ -22,8 +22,13 @@ while True:
 
             time.sleep(3)
 
-            motor1.motorStop()
-            motor2.motorStop()
+           # motor1.motorBackward()
+           # motor2.motorBackward()
+            
+            #time.sleep(3)
+            
+            #motor1.stop()
+            #motor2.stop()
 
         else:
             print("Invalid command. Please try again.")
