@@ -17,6 +17,35 @@ def mainPage():
                 <a href="http://raspberrypi.local:8000/record" class="rounded-full bg-red-700 py-4 px-8 font-bold text-white hover:bg-red-600"> Record </a>
             </div>
         </body>
+        <style>
+  .h-screen {
+    height: 100vh;
+  }
+  
+  @media (min-width: 640px) {
+    /* Small screens */
+    .py-4 {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .px-8 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    /* Large screens */
+    .py-6 {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+    .px-10 {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+        </style>
     </html>
 
     """
