@@ -18,7 +18,7 @@ def checkTilt(aX, aY, aZ):
     else:
         return "Robot is not upside down"
 
-mpu.set_accel_range(mpu6050_sensor.ACCEL_RANGE_16G)
+mpu.set_accel_range(mpu.ACCEL_RANGE_16G)
 
 okidokiToRecordy = False    
 
@@ -48,7 +48,7 @@ while True:
         print('X: ' + str(prevX) + ' Y: ' + str(prevY) + ' Z: '+ str(prevZ))
         print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: '+ str(az))
 
-
+        
         #LANDED CODE
         if (ax == prevX) and (ay == prevY) and (az == prevZ):
             print('Landed!!!')
@@ -76,5 +76,9 @@ while True:
         print(checkTilt(ax, ay, az))
 
         record.record(temp)
+
+        if LANDED:
+            print("Landed")
+            exit()
 
         time.sleep(0.5)
