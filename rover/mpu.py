@@ -1,7 +1,8 @@
 from mpu6050 import mpu6050
 import math
 import time
-from csv import writer
+import record.py
+
 
 mpu = mpu6050(0x68)
 
@@ -39,7 +40,7 @@ while True:
 
     #LANDED CODE
     if (ax == prevX) and (ay == prevY) and (az == prevZ):
-        print('landed')
+        print('Landed!!!')
         print(checkTilt(ax, ay, az))
     
     #NOT LANDED, STILL MOVING
@@ -57,9 +58,6 @@ while True:
 
     print(checkTilt(ax, ay, az))
 
-    with open('data.csv', 'a') as dataFile:
-        fileObject = writer(dataFile)
-        fileObject.writerow(temp)
-        fileObject.close()
+    record(temp)
 
     time.sleep(0.5)
