@@ -17,6 +17,7 @@ def mainPage():
                 <a href="http://raspberrypi.local:8000/record" class="rounded-full bg-red-700 py-4 px-8 font-bold text-white hover:bg-red-600"> Record </a>
             </div>
         </body>
+       
     </html>
 
     """
