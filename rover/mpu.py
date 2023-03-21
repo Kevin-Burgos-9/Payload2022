@@ -6,21 +6,23 @@ import record
 
 mpu = mpu6050(0x68)
 
+
 def checkTilt(aX, aY, aZ):
 
-    pitch = math.atan2(-1 * aX, aZ) * 180 / math.pi # rotation on Y axis
-    roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi # rotation on X axis   
+    pitch = math.atan2(-1 * aX, aZ) * 180 / math.pi  # rotation on Y axis
+    roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi  # rotation on X axis
 
     if abs(roll) > 90 or abs(pitch) > 90:
         return "Robot is upside down"
     elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
-       return "Robot is upside down"
+        return "Robot is upside down"
     else:
         return "Robot is not upside down"
 
+
 mpu.set_accel_range(mpu.ACCEL_RANGE_16G)
 
-okidokiToRecordy = False    
+okidokiToCheckyForLandy = False
 
 while True:
 
@@ -31,54 +33,53 @@ while True:
     gyro_data = mpu.get_gyro_data()
 
     if accelerometer_data.get('x') > 3.0:
-        okidokiToRecordy = True
+        okidokiToCheckyForLandy = True
 
-    if okidokiToRecordy:
-        prevX = round(accelerometer_data.get('x'),0)
-        prevY = round(accelerometer_data.get('y'),0)
-        prevZ = round(accelerometer_data.get('z'),0)
+    prevX = round(accelerometer_data.get('x'), 0)
+    prevY = round(accelerometer_data.get('y'), 0)
+    prevZ = round(accelerometer_data.get('z'), 0)
 
-        time.sleep(0.15)
+    time.sleep(0.15)
 
-        accelerometer_data = mpu.get_accel_data()
-        ax = round(accelerometer_data.get('x'),0)
-        ay = round(accelerometer_data.get('y'),0)
-        az = round(accelerometer_data.get('z'),0)
+    accelerometer_data = mpu.get_accel_data()
+    ax = round(accelerometer_data.get('x'), 0)
+    ay = round(accelerometer_data.get('y'), 0)
+    az = round(accelerometer_data.get('z'), 0)
 
-        print('X: ' + str(prevX) + ' Y: ' + str(prevY) + ' Z: '+ str(prevZ))
-        print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: '+ str(az))
+    print('X: ' + str(prevX) + ' Y: ' + str(prevY) + ' Z: ' + str(prevZ))
+    print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: ' + str(az))
 
-        
-        #LANDED CODE
+    if okidokiToCheckyForLandy:
+        # LANDED CODE
         if (ax == prevX) and (ay == prevY) and (az == prevZ):
             print('Landed!!!')
             LANDED = True
             print(checkTilt(ax, ay, az))
-        
-        #NOT LANDED, STILL MOVING
+
+        # NOT LANDED, STILL MOVING
         else:
             print('Schmooving!')
             LANDED = False
 
-        temp = []
-        t = time.localtime()
-        current_time = time.strftime("%H:%M:%S", t)
-        
-        temperature = mpu.get_temp()
+    temp = []
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
 
-        temp.append(current_time)
-        temp.append(ax)
-        temp.append(ay)
-        temp.append(az)
-        temp.append(LANDED)
-        temp.append(temperature)
+    temperature = mpu.get_temp()
 
-        print(checkTilt(ax, ay, az))
+    temp.append(current_time)
+    temp.append(ax)
+    temp.append(ay)
+    temp.append(az)
+    temp.append(LANDED)
+    temp.append(temperature)
 
-        record.record(temp)
+    print(checkTilt(ax, ay, az))
 
-        if LANDED:
-            print("Landed")
-            exit()
+    record.record(temp)
 
-        time.sleep(0.5)
+    if LANDED:
+        print("Landed")
+        exit()
+
+    time.sleep(0.5)
