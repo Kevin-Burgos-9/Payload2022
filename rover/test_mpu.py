@@ -4,7 +4,8 @@ mpu6050_sensor = mpu6050(0x68)  # MPU6050 device address
 
 while True:
     # Read accelerometer data
-    accel_data = mpu6050_sensor.set_accel_range(100)
+    mpu6050_sensor.set_accel_range(100)
+    accel_data = mpu6050_sensor.get_accel_data()
 
     # Print acceleration data
     print("Acceleration in X-Axis : %f g" % accel_data['x'])
