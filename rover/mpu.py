@@ -65,7 +65,7 @@ while True:
 
     temp = []
     t = time.localtime()
-    current_time = time.strftime("%H:%M:%S", t)
+    current_time = time.strftime("%M:%S.%f", t)
 
     temperature = mpu.get_temp()
 
@@ -76,12 +76,21 @@ while True:
     temp.append(LANDED)
     temp.append(temperature)
 
+    
+    pitch = math.atan2(-1 * ax, az) * 180 / math.pi  # rotation on Y axis
+    temp.append(pitch)
+    roll = math.atan2(-1 * (yY), az) * 180 / math.pi  # rotation on X axis
+    temp.append(roll)
+
     print(checkTilt(ax, ay, az))
 
     if LANDED:
 
         print("Landed")
 
+        #Record one more time for statistics
+        record.record(temp)
+        
         while True:
             buzzer.on()
             time.sleep(1)
