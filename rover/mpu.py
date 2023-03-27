@@ -1,10 +1,12 @@
 from mpu6050 import mpu6050
+from gpiozero import Buzzer
 import math
 import time
 import record
 
 
 mpu = mpu6050(0x68)
+buzzer = Buzzer(17)  # enter GPIO pin
 
 
 def checkTilt(aX, aY, aZ):
@@ -32,7 +34,7 @@ while True:
     accelerometer_data = mpu.get_accel_data(g=True)
     gyro_data = mpu.get_gyro_data()
 
-    if accelerometer_data.get('x') > 5.0:
+    if accelerometer_data.get('x') > 5.0 or accelerometer_data.get('x') < -5.0:
         okidokiToCheckyForLandy = True
 
     prevX = round(accelerometer_data.get('x'), 0)
@@ -76,10 +78,18 @@ while True:
 
     print(checkTilt(ax, ay, az))
 
-    record.record(temp)
-
     if LANDED:
+
         print("Landed")
+
+        while True:
+            buzzer.on()
+            time.sleep(1)
+            buzzer.off()
+            time.sleep(1)
+
         exit()
+    else:
+        record.record(temp)
 
     time.sleep(0.5)
