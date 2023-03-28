@@ -6,7 +6,7 @@ import record
 
 
 mpu = mpu6050(0x68)
-buzzer = Buzzer(17)  # enter GPIO pin
+buzzer = Buzzer(4)  # enter GPIO pin
 
 
 def checkTilt(aX, aY, aZ):
