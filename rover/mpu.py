@@ -28,13 +28,13 @@ okidokiToCheckyForLandy = False
 
 while True:
 
-    LANDED = True
+    LANDED = False
     temperature = 0
 
     accelerometer_data = mpu.get_accel_data(g=True)
     gyro_data = mpu.get_gyro_data()
 
-    if accelerometer_data.get('x') > 2.0 or accelerometer_data.get('x') < -2.0:
+    if round(accelerometer_data.get('x'), 0) > 5.0 or round(accelerometer_data.get('x'), 0) < -5.0:
         okidokiToCheckyForLandy = True
         print(Launched)
 
