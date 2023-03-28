@@ -34,7 +34,7 @@ while True:
     accelerometer_data = mpu.get_accel_data(g=True)
     gyro_data = mpu.get_gyro_data()
 
-    if round(accelerometer_data.get('x'), 0) > 5.0 or round(accelerometer_data.get('x'), 0) < -5.0:
+    if round(accelerometer_data.get('x'), 0) > 5 or round(accelerometer_data.get('x'), 0) < -5:
         okidokiToCheckyForLandy = True
         print(Launched)
 
