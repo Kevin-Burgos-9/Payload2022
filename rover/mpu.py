@@ -44,7 +44,7 @@ while True:
 
     time.sleep(0.15)
 
-    accelerometer_data = mpu.get_accel_data()
+    accelerometer_data = mpu.get_accel_data(g=True)
     ax = round(accelerometer_data.get('x'), 0)
     ay = round(accelerometer_data.get('y'), 0)
     az = round(accelerometer_data.get('z'), 0)
