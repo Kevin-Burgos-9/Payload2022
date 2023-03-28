@@ -76,10 +76,9 @@ while True:
     temp.append(LANDED)
     temp.append(temperature)
 
-    
     pitch = math.atan2(-1 * ax, az) * 180 / math.pi  # rotation on Y axis
     temp.append(pitch)
-    roll = math.atan2(-1 * (yY), az) * 180 / math.pi  # rotation on X axis
+    roll = math.atan2(-1 * (ay), az) * 180 / math.pi  # rotation on X axis
     temp.append(roll)
 
     print(checkTilt(ax, ay, az))
@@ -88,9 +87,9 @@ while True:
 
         print("Landed")
 
-        #Record one more time for statistics
+        # Record one more time for statistics
         record.record(temp)
-        
+
         while True:
             buzzer.on()
             time.sleep(1)
