@@ -36,6 +36,7 @@ while True:
 
     if accelerometer_data.get('x') > 2.0 or accelerometer_data.get('x') < -2.0:
         okidokiToCheckyForLandy = True
+        print(Launched)
 
     prevX = round(accelerometer_data.get('x'), 0)
     prevY = round(accelerometer_data.get('y'), 0)
