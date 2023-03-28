@@ -68,7 +68,7 @@ while True:
     temp = []
     date_str = str(datetime.now())
 
-    current_time = datetime.strptime(date_str, '%H:%M:%S.%f')
+    current_time = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S.%f')
     t = time.localtime()
     # current_time = time.strftime("%M:%S", t)
 
