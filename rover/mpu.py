@@ -2,7 +2,6 @@ from mpu6050 import mpu6050
 from gpiozero import Buzzer
 import math
 import time
-from datetime import datetime
 import record
 
 
@@ -67,7 +66,7 @@ while True:
 
     temp = []
     t = time.localtime()
-    current_time = datetime.strptime(str(datetime.now()), "%M:%S.%f")
+    current_time = time.strftime("%M:%S +0000", t)
 
     temperature = mpu.get_temp()
 
