@@ -100,4 +100,6 @@ while True:
     else:
         record.record(temp)
 
+    buzzer.on()
     time.sleep(0.5)
+    buzzer.off()
