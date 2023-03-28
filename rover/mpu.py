@@ -105,4 +105,4 @@ while True:
     buzzer.on()
     time.sleep(0.5)
     buzzer.off()
-    time.sleep(0.5)
+    # time.sleep(0.5)
