@@ -67,7 +67,7 @@ while True:
 
     temp = []
     t = time.localtime()
-    current_time = datetime.strptime(datetime.now(), "%M:%S.%f")
+    current_time = datetime.strptime(str(datetime.now()), "%M:%S.%f")
 
     temperature = mpu.get_temp()
 
