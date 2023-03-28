@@ -28,7 +28,7 @@ okidokiToCheckyForLandy = False
 
 while True:
 
-    LANDED = False
+    LANDED = True
     temperature = 0
 
     accelerometer_data = mpu.get_accel_data(g=True)
@@ -92,9 +92,6 @@ while True:
 
         while True:
             buzzer.on()
-            time.sleep(1)
-            buzzer.off()
-            time.sleep(1)
 
         exit()
     else:
