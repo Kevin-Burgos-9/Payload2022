@@ -3,6 +3,7 @@ from gpiozero import Buzzer
 import math
 import time
 import record
+from datetime import datetime
 
 
 mpu = mpu6050(0x68)
@@ -65,8 +66,11 @@ while True:
             LANDED = False
 
     temp = []
+    date_str = str(datetime.now())
+
+    current_time = datetime.strptime(date_str, '%H:%M:%S.%f')
     t = time.localtime()
-    current_time = time.strftime("%M:%S +0000", t)
+    # current_time = time.strftime("%M:%S", t)
 
     temperature = mpu.get_temp()
 
