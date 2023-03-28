@@ -101,3 +101,8 @@ while True:
         record.record(temp)
 
     time.sleep(0.5)
+
+    buzzer.on()
+    time.sleep(1)
+    buzzer.off()
+    time.sleep(1)
