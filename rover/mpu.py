@@ -16,16 +16,18 @@ def checkTilt(aX, aY, aZ):
     roll = math.atan2(-1 * (aY), aZ) * 180 / math.pi  # rotation on X axis
 
     if abs(roll) > 90 or abs(pitch) > 90:
-        return "Robot is upside down"
+        return "Rover is upside down"
     elif (roll > 0 and pitch < 0) or (roll < 0 and pitch > 0):
-        return "Robot is upside down"
+        return "Rover is upside down"
     else:
-        return "Robot is not upside down"
+        return "Rover is not upside down"
 
 
 mpu.set_accel_range(mpu.ACCEL_RANGE_16G)
 
-okidokiToCheckyForLandy = False
+landCheck = False
+
+landCount = 0
 
 while True:
 
@@ -35,29 +37,31 @@ while True:
     accelerometer_data = mpu.get_accel_data(g=True)
     gyro_data = mpu.get_gyro_data()
 
-    if round(accelerometer_data.get('x'), 0) > 4 or round(accelerometer_data.get('x'), 0) < -4:
-        okidokiToCheckyForLandy = True
+    if round(accelerometer_data.get('x'), 1) > 4 or round(accelerometer_data.get('x'), 1) < -4:
+        landCheck= True
         print("Launched")
 
-    prevX = round(accelerometer_data.get('x'), 0)
-    prevY = round(accelerometer_data.get('y'), 0)
-    prevZ = round(accelerometer_data.get('z'), 0)
+    prevX = round(accelerometer_data.get('x'), 1)
+    prevY = round(accelerometer_data.get('y'), 1)
+    prevZ = round(accelerometer_data.get('z'), 1)
 
-    time.sleep(0.15)
+    time.sleep(0.05)
 
     accelerometer_data = mpu.get_accel_data(g=True)
-    ax = round(accelerometer_data.get('x'), 0)
-    ay = round(accelerometer_data.get('y'), 0)
-    az = round(accelerometer_data.get('z'), 0)
+    ax = round(accelerometer_data.get('x'), 1)
+    ay = round(accelerometer_data.get('y'), 1)
+    az = round(accelerometer_data.get('z'), 1)
 
     print('X: ' + str(prevX) + ' Y: ' + str(prevY) + ' Z: ' + str(prevZ))
     print('X: ' + str(ax) + ' Y: ' + str(ay) + ' Z: ' + str(az))
 
-    if okidokiToCheckyForLandy:
+    if landCheck:
         # LANDED CODE
         if (ax == prevX) and (ay == prevY) and (az == prevZ):
             print('Landed!!!')
-            LANDED = True
+            landCount += 1
+            if landCount >= 15:
+                LANDED = True
             print(checkTilt(ax, ay, az))
 
         # NOT LANDED, STILL MOVING
@@ -95,7 +99,7 @@ while True:
         # Record one more time for statistics
         record.record(temp)
 
-        while True:
+       while True:
             buzzer.on()
 
         exit()
