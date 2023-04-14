@@ -43,11 +43,11 @@ mpu = mpu6050(0x68)
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(12,GPIO.OUT)
-GPIO.setup(13,GPIO.OUT)
+#GPIO.setup(12,GPIO.OUT)
+#GPIO.setup(13,GPIO.OUT)
 
 #in main loop, if mpu data is too far from ideal, then restart the process
-l = SelfLeveling()
+#l = SelfLeveling()
 #l.set_straight()
 while True:
     ax = mpu.get_accel_data().get("x")
@@ -57,11 +57,11 @@ while True:
     #pitch = math.atan2(-ax, az) ignore for now, working with az
     #print(pitch)
     
-    if l.leveled == False:
-        l.level(az)
+#    if l.leveled == False:
+#        l.level(az)
         
-    if az > 0 or az < -1.3:
-        l.leveled = False
+#    if az > 0 or az < -1.3:
+#        l.leveled = False
     
 
 

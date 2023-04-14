@@ -1,4 +1,6 @@
+
 import pigpio
+import time
 
 class Motor:
     def __init__(self, pwm_pin, stby_pin, in1_pin, in2_pin):
@@ -34,7 +36,22 @@ class Motor:
 
     def motorStop(self):
         self.pi.write(self.aIn1, 0)
-        self.pi.write(self.aIn2, 0)
+
         self.pi.set_PWM_dutycycle(self.pwmA, 0)  # set motor speed to 0
+
+pwm = 10
+standby = 16
+
+in1 = 11
+
+in2 = 9
+
+m1 = Motor(pwm, standby, in1, in2)
+
+m = Motor(pwm,standby,in1,in2)
+
+
+
+
 
     
